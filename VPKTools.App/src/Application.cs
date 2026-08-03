@@ -44,7 +44,7 @@ public class Application
 
         if (terminal == null)
         {
-            Console.Error.WriteLine("The terminal is unavailable. Run with -help for command-line usage.");
+            Console.Error.WriteLine("The terminal is unavailable. Run with -help for CLI usage.");
             return 1;
         }
 
