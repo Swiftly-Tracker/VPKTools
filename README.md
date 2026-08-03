@@ -30,11 +30,11 @@ dotnet add package VPKTools
 
 ## Layout
 
-| Project          | Purpose                                                                             |
-| ---------------- | ----------------------------------------------------------------------------------- |
-| `VPKTools.Tier0` | Core framework: interface registry, ConVars, ConCommands, logging, terminal REPL.   |
+| Project          | Purpose                                                                                                                                 |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `VPKTools.Tier0` | Core framework: interface registry, ConVars, ConCommands, logging, terminal REPL.                                                       |
 | `VPKTools.Pak`   | VPK reading, backed by [ValvePak](https://www.nuget.org/packages/ValvePak). Public API in `src/Shared/`, implementation in `src/Core/`. |
-| `VPKTools.App`   | CLI entry point. One-shot VPK action when you pass `-vpk` + a flag, or interactive terminal. |
+| `VPKTools.App`   | CLI entry point. One-shot VPK action when you pass `-vpk` + a flag, or interactive terminal.                                            |
 
 ## Interactive terminal
 
@@ -67,10 +67,10 @@ One-shot:
 Entry listings (`-list`, `-output`, `pak_list`, `pak_output`, `pak_find`) print one line per entry:
 
 ```
-path=materials/foo/bar.vmt crc=B5ECB9D0 size=51 B size_in_bytes=51
+path=materials/foo/bar.vmt crc=B5ECB9D0 size=51B size_in_bytes=51
 ```
 
-`crc` is the 8-digit uppercase-hex CRC32; `size` is human-readable (KiB/MiB/... binary units); `size_in_bytes` is the exact byte count.
+`crc` is the 8-digit uppercase-hex CRC32; `size` is human-readable (KB/MB/... binary units); `size_in_bytes` is the exact byte count.
 
 From the terminal, the same functionality is available as commands:
 
