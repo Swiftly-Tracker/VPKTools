@@ -1,0 +1,6 @@
+<Solution>
+    <Project Path="VPKTools.Tier0/VPKTools.Tier0.csproj" />
+    <Project Path="VPKTools.Pak/VPKTools.Pak.csproj" />
+    <Project Path="VPKTools.App/VPKTools.App.csproj" />
+    <Project Path="VPKTools.csproj" />
+</Solution>

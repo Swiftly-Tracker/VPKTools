@@ -1,0 +1,61 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>VPKTools</PackageId>
+    <RootNamespace>VPKTools</RootNamespace>
+    <Description>Utilities to parse Valve's PAK files for metadata purposes.</Description>
+    <PackageTags>steam;depot;manifest;cdn;downloader</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <BaseOutputPath>build\</BaseOutputPath>
+    <OutputPath>$(BaseOutputPath)Release\VPKTools</OutputPath>
+    <AssemblyName>VPKTools</AssemblyName>
+    <PlatformTarget>x64</PlatformTarget>
+
+    <DebugType>portable</DebugType>
+
+    <DefaultItemExcludes>$(DefaultItemExcludes);**\obj\**;**\bin\**;build\**</DefaultItemExcludes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="VPKTools.App\VPKTools.App.csproj" ReferenceOutputAssembly="false" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="QRCoder" Version="1.8.0" />
+    <PackageReference Include="Spectre.Console" Version="0.57.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="**\*.cs" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);AddProjectDllsToPackage</TargetsForTfmSpecificBuildOutput>
+  </PropertyGroup>
+
+  <Target Name="AddProjectDllsToPackage" DependsOnTargets="ResolveReferences">
+    <ItemGroup>
+      <_SddPackagedAssembly Include="@(ReferenceCopyLocalPaths)"
+        Condition="'%(ReferenceCopyLocalPaths.Extension)' == '.dll' Or '%(ReferenceCopyLocalPaths.Extension)' == '.xml'" />
+      <_SddPackagedAssembly Remove="@(_SddPackagedAssembly)"
+        Condition="!$([System.String]::Copy('%(Filename)').StartsWith('VPKTools.'))" />
+      <_SddPackagedAssembly Include="@(_SddPackagedAssembly->'%(RootDir)%(Directory)%(Filename).xml')"
+        Condition="Exists('%(RootDir)%(Directory)%(Filename).xml')" />
+      <BuildOutputInPackage Include="@(_SddPackagedAssembly)" />
+    </ItemGroup>
+    <Message Importance="high" Text="Packaging: @(_SddPackagedAssembly->'%(Filename)%(Extension)', ', ')" />
+  </Target>
+
+</Project>
